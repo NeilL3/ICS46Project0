@@ -34,11 +34,11 @@ class LinkedListStack {
     // Helper function that returns a copy of a linked list
     Node* copy(Node* head) {
         if (head != nullptr) {
-            Node* newhead = new Node(head->data, nullptr);
+            Node* newhead = new Node{head->data, nullptr};
             Node* this_p = newhead;
 
             for (Node* other_p = head->next; other_p != nullptr; this_p=this_p->next, other_p=other_p->next) {
-                this_p->next = new Node(other_p->data, nullptr);
+                this_p->next = new Node{other_p->data, nullptr};
             }
             return newhead;
         }
@@ -46,8 +46,7 @@ class LinkedListStack {
     }
 
     // fill in private member data here
-    int length{0};
-    Node* head{nullptr};
+    Node* head;
 
    public:
     // constructor
@@ -80,14 +79,15 @@ class LinkedListStack {
 };
 
 template <typename T>
-LinkedListStack<T>::LinkedListStack() {
+LinkedListStack<T>::LinkedListStack() 
+    : head{nullptr}
+{
     // TODO: Fill in your constructor implementation here.
-    // Nothing to implement
 }
 
 template <typename T>
 LinkedListStack<T>::LinkedListStack(const LinkedListStack& stackb)
-    : head(copy(stackb)) 
+    : head(copy(stackb.head)) 
 {
     // TODO: Fill in your copy constructor implementation here.
 }
@@ -97,7 +97,7 @@ LinkedListStack<T>& LinkedListStack<T>::operator=(
     const LinkedListStack& stackb) {
     // TODO: Fill in your assignment operator implementation here.
     clear(head);
-    head = copy(stackb);
+    head = copy(stackb.head);
     return *this;  // Stub so this function compiles without implementation.
 }
 
@@ -111,7 +111,7 @@ template <typename T>
 size_t LinkedListStack<T>::size() const noexcept {
     // TODO: Fill in your size() implementation here.
     int length = 0;
-    for (Node *p = head; p != nullptr; p = head) {
+    for (Node *p = head; p != nullptr; p = p->next) {
 		    ++length;
 	    }
     return length;  // Stub so this function compiles without an implementation.
@@ -128,7 +128,10 @@ T& LinkedListStack<T>::top() {
     // TODO: Fill in your top() implementation here.
     // The following is a stub just to get the template project to compile.
     // You should delete it for your implementation.
-    return *head->data;
+    if (head == nullptr) {
+        throw StackEmptyException("The stack is empty");
+    }
+    return head->data;
 }
 
 template <typename T>
@@ -136,13 +139,16 @@ const T& LinkedListStack<T>::top() const {
     // TODO: Fill in your const top() implementation here.
     // The following is a stub just to get the template project to compile.
     // You should delete it for your implementation.
+    if (head == nullptr) {
+        throw StackEmptyException("The stack is empty");
+    }
     return head->data;
 }
 
 template <typename T>
 void LinkedListStack<T>::push(const T& elem) noexcept {
     // TODO: Fill in your push() implementation here.
-    head = new Node(elem, head);
+    head = new Node{elem, head};
 }
 
 template <typename T>

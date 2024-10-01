@@ -6,6 +6,7 @@ namespace shindler::ics46::project0 {
 
 unsigned postfixCalculator(const std::vector<std::string>& entries) {
     // TODO: Implement Function
+    auto x = entries; //delete this
     return {};  // stub, not the correct answer
 }
 

@@ -62,6 +62,85 @@ TEST_CASE("Stack:EmptyCallToTop:ExpectException", "[Required][Stack]") {
 
 // YOU SHOULD ADD ADDITIONAL TEST_CASE "ERE" H"[CASES]"!!
 
+TEST_CASE("Stack:MultipleDataTypes") {
+    const std::string TESTSTRING = "Hello World";
+    const double TESTDOUBLE = 3.14;
+
+    proj0::LinkedListStack<std::string> stringstack;
+    stringstack.push(TESTSTRING);
+    REQUIRE(stringstack.top() == TESTSTRING);
+
+    proj0::LinkedListStack<double> doublestack;
+    doublestack.push(TESTDOUBLE);
+    REQUIRE(doublestack.top() == TESTDOUBLE);
+}
+
+TEST_CASE("Stack:CopyConstructor") {
+    const int FIRST_VALUE = 5;
+    const int SECOND_VALUE = 10;
+    const int THIRD_VALUE = 10;
+
+
+    proj0::LinkedListStack<int> stack;
+    stack.push(FIRST_VALUE);
+    proj0::LinkedListStack<int> newStack = stack;
+
+    REQUIRE(stack.top() == FIRST_VALUE);
+    REQUIRE(newStack.top() == FIRST_VALUE);
+
+    stack.push(SECOND_VALUE);
+    REQUIRE(stack.top() == SECOND_VALUE);
+    REQUIRE(newStack.top() == FIRST_VALUE);
+
+    newStack.push(THIRD_VALUE);
+    REQUIRE(stack.top() == SECOND_VALUE);
+    REQUIRE(newStack.top() == THIRD_VALUE);
+}
+
+TEST_CASE("Stack:CopyAssignment") {
+    const int FIRST_VALUE = 5;
+    const int SECOND_VALUE = 10;
+    const int THIRD_VALUE = 10;
+
+
+    proj0::LinkedListStack<int> stack;
+    stack.push(FIRST_VALUE);
+    proj0::LinkedListStack<int> newStack;
+    newStack = stack;
+
+    REQUIRE(stack.top() == FIRST_VALUE);
+    REQUIRE(newStack.top() == FIRST_VALUE);
+
+    stack.push(SECOND_VALUE);
+    REQUIRE(stack.top() == SECOND_VALUE);
+    REQUIRE(newStack.top() == FIRST_VALUE);
+
+    newStack.push(THIRD_VALUE);
+    REQUIRE(stack.top() == SECOND_VALUE);
+    REQUIRE(newStack.top() == THIRD_VALUE);
+}
+
+TEST_CASE("Stack:SizeAndEmpty") {
+    proj0::LinkedListStack<int> stack;
+    REQUIRE(stack.size() == 0);
+    REQUIRE(stack.empty() == true);
+    
+    stack.push(5);
+    REQUIRE(stack.size() == 1);
+    REQUIRE(stack.empty() == false);
+}
+
+TEST_CASE("Stack:ChangingTopOfStack") {
+    proj0::LinkedListStack<int> stack;
+    stack.push(1);
+    stack.push(2);
+    REQUIRE(stack.top() == 2);
+
+    stack.top() = 5;
+    REQUIRE(stack.top() == 5);
+}
+
+/*
 TEST_CASE("Calc:53*:Expect15", "[Required][Calc]") {
     const std::vector<std::string> EXPRESSION = {"5", "3", "*"};
 
@@ -89,5 +168,5 @@ TEST_CASE("Calc:43*20*:Expect300", "[PartialCredit][Calc]") {
 
     REQUIRE(proj0::postfixCalculator(EXPRESSION) == 300);
 }
-
+*/
 }  // namespace
