@@ -149,7 +149,7 @@ TEST_CASE("Stack:TopOfConstStack") {
     REQUIRE(newConstStack.top() == 2);
 }
 
-/*
+// postfixCalc tests
 TEST_CASE("Calc:53*:Expect15", "[Required][Calc]") {
     const std::vector<std::string> EXPRESSION = {"5", "3", "*"};
 
@@ -177,5 +177,5 @@ TEST_CASE("Calc:43*20*:Expect300", "[PartialCredit][Calc]") {
 
     REQUIRE(proj0::postfixCalculator(EXPRESSION) == 300);
 }
-*/
+
 }  // namespace
