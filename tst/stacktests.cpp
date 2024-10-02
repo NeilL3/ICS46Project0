@@ -140,6 +140,15 @@ TEST_CASE("Stack:ChangingTopOfStack") {
     REQUIRE(stack.top() == 5);
 }
 
+TEST_CASE("Stack:TopOfConstStack") {
+    proj0::LinkedListStack<int> stack;
+    stack.push(1);
+    stack.push(2);
+    
+    const proj0::LinkedListStack<int>& newConstStack = stack;
+    REQUIRE(newConstStack.top() == 2);
+}
+
 /*
 TEST_CASE("Calc:53*:Expect15", "[Required][Calc]") {
     const std::vector<std::string> EXPRESSION = {"5", "3", "*"};
