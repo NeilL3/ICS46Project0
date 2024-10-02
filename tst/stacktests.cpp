@@ -178,4 +178,10 @@ TEST_CASE("Calc:43*20*:Expect300", "[PartialCredit][Calc]") {
     REQUIRE(proj0::postfixCalculator(EXPRESSION) == 300);
 }
 
+TEST_CASE("Calc:divide") {
+    const std::vector<std::string> EXPRESSION = {"10", "2", "/"};
+
+    REQUIRE(proj0::postfixCalculator(EXPRESSION) == 5);
+}
+
 }  // namespace
